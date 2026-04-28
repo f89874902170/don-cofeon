@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Меню Кофе</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #36a38b; /* Зеленовато-бирюзовый фон */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: black;
+            color: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-logo img {
+            height: 35px;
+            margin-right: 15px;
+        }
+
+        .header-logo span {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .header-nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .header-nav a:hover {
+            color: #ddd;
+            text-decoration: underline;
+        }
+
+        .header-vk-icon img {
+            height: 25px;
+            margin-left: 15px;
+            vertical-align: middle;
+        }
+
+        .content-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            width: 100%;
+            flex: 1;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 30px;
+            padding: 12px 25px;
+            margin-bottom: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            border: 1px solid #ddd;
+        }
+
+        .search-bar input {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            font-size: 22px;
+            padding: 0;
+            color: #333;
+        }
+
+        .search-bar input::placeholder {
+            color: #aaa;
+        }
+
+        .search-bar .search-icon {
+            font-size: 28px;
+            color: #888;
+            cursor: pointer;
+            margin-left: 15px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 колонки равной ширины */
+            gap: 30px; /* Расстояние между карточками */
+            padding-top: 20px;
+        }
+
+        .menu-item {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-item-image-wrapper {
+            width: 100%;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-item-title {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .menu-item-price {
+            font-size: 22px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .menu-item-description {
+            font-size: 16px;
+            color: #777;
+            line-height: 1.4;
+        }
+
+        .footer {
+            background-color: black;
+            color: white;
+            padding: 25px 30px;
+            font-size: 16px;
+            text-align: center;
+            margin-top: auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+        .a {
+            color: #ddd;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .header {
+                flex-direction: column;
+                padding: 10px 20px;
+            }
+
+
+            .header-logo {
+                margin-bottom: 10px;
+                justify-content: center;
+            }
+
+            .header-logo img {
+                height: 30px;
+            }
+
+            .header-logo span {
+                font-size: 20px;
+            }
+
+            .header-nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+            }
+
+            .header-nav a {
+                margin: 5px 15px;
+                font-size: 16px;
+            }
+
+            .header-vk-icon img {
+                margin-left: 0;
+                margin-top: 5px;
+            }
+
+            .content-container {
+                margin: 20px auto;
+            }
+
+            .search-bar {
+                max-width: 100%;
+                padding: 10px 20px;
+            }
+
+            .search-bar input {
+                font-size: 18px;
+            }
+
+            .search-bar .search-icon {
+                font-size: 24px;
+            }
+            .a {
+            color: var(--text-color-light) !important; /* Всегда белый цвет */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+             .a:hover {
+            color: #ddd !important; /* Светлее при наведении */
+            text-decoration: underline;
+             }
+
+
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 колонки на средних экранах */
+                gap: 20px;
+            }
+
+            .menu-item {
+                padding: 20px;
+                border-radius: 15px;
+            }
+
+            .menu-item img {
+                height: 200px;
+                margin-bottom: 15px;
+            }
+
+            .menu-item-title {
+                font-size: 24px;
+            }
+
+            .menu-item-price {
+                font-size: 18px;
+            }
+
+            .menu-item-description {
+                font-size: 14px;
+            }
+
+            .footer {
+                padding: 20px 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .menu-grid {
+                grid-template-columns: 1fr; /* 1 колонка на самых малых экранах */
+            }
+
+            .header-nav a {
+                font-size: 14px;
+                margin: 3px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-logo">
+            <img src="logoDonCofeon.jpg" alt="Логотип Компании"> <!-- Укажите путь к вашему логотипу -->
+            <span><a href="file:///C:/Apache24/htdocs/doncofeon/index.html">Дон Кофеон</a></span>
+        </div>
+        <nav class="header-nav">
+            <a href="file:///C:/Apache24/htdocs/doncofeon/menu.html">меню</a>
+            <a href="file:///C:/Apache24/htdocs/doncofeon/predzakaz.html">предзаказ</a>
+            <a href="file:///C:/Apache24/htdocs/doncofeon/about.html">о нас</a>
+        </nav>
+        <div class="header-vk-icon">
+            <a href="https://vk.com/donkofeone"><img src="https://vk.com/donkofeone"><img src="https://m.vk.com/images/logos/vklogo_400.png" alt="VK"></a> <!-- Иконка VK -->
+        </div>
+    </header>
+
+    <div class="content-container">
+        <div class="search-bar">
+            <input type="text" placeholder="Введите название...">
+            <span class="search-icon">&#x1F50D;</span> <!-- Иконка поиска -->
+        </div>
+
+        <div class="menu-grid">
+            <!-- Кофе -->
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/coffee/cappuccino" target="_blank">
+                        <img src="https://sun9-79.userapi.com/impg/Bcj5aqGSi8OvrD1QSPOjCZ8O0M9smAJDSv-0ag/mukJAC2VFBM.jpg?size=1080x1080&quality=95&sign=dc9bf3cbf168d8c87f13f14bedd192c1&type=album" alt="Капучино">
+                    </a>
+                </div>
+                <div class="menu-item-title">Капучино</div>
+                <div class="menu-item-price">230-300</div>
+                <div class="menu-item-description">Шот эспрессо, молоко</div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/coffee/latte" target="_blank">
+                        <img src="https://sun9-3.userapi.com/impg/duLJ2plOhSNC9THUkrm8OrCJEOJ51ZYs68Iuig/4WLqvsJDcSI.jpg?size=1080x1080&quality=95&sign=714a282df3653eeed6583540a6e7fc8b&type=album" alt="Латте">
+                    </a>
+                </div>
+                <div class="menu-item-title">Латте</div>
+                <div class="menu-item-price">230-300</div>
+                <div class="menu-item-description">Шот эспрессо, 2 молока</div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/coffee/americano" target="_blank">
+                        <img src="https://sun9-70.userapi.com/impg/3obePWekD8UNWMovxZfTRoFk6nXVJKIOUF1VBA/nRQyCrvWiXQ.jpg?size=1080x1080&quality=95&sign=0a74e99d1f71680a1542757356755af8&type=album" alt="Американо">
+                    </a>
+                </div>
+                <div class="menu-item-title">Американо</div>
+                <div class="menu-item-price">180-260</div>
+                <div class="menu-item-description">Шот эспрессо, кипяток</div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/coffee/flat-white" target="_blank">
+                        <img src="https://sun9-75.userapi.com/impg/9UxC30Qw2kCHZBGzlkKPNzhTqRzKbFvUGxJV9g/5ubq05Rz3mM.jpg?size=1080x1080&quality=95&sign=9f3f91b13677c30013b6ccd81fecaca2&type=album" alt="Флэт Уайт">
+                    </a>
+                </div>
+                <div class="menu-item-title">Флэт Уайт</div>
+                <div class="menu-item-price">260-320</div>
+                <div class="menu-item-description">2 шота эспрессо, молоко</div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/coffee/mokko" target="_blank">
+                        <img src="https://sun9-27.userapi.com/impg/oN15VxGf7oXbZ5ttj2Bn-2z2o8l-9xqC00DYWQ/gIESAA1sLDg.jpg?size=1080x1080&quality=95&sign=a539b9ee2f48e448848712e024209dda&type=album" alt="Мокко">
+                    </a>
+                </div>
+                <div class="menu-item-title">Мокко</div>
+                <div class="menu-item-price">250-350</div>
+                <div class="menu-item-description">Шот эспрессо, молоко и какао</div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/coffee/raf" target="_blank">
+                        <img src="https://sun9-20.userapi.com/impg/pXTWLkEi_VuDftO57Zdv6jvBRYLdru_e8IWjDg/ddfy9raAMGQ.jpg?size=1080x1080&quality=95&sign=da76b921d9209ee52f94619729ed58be&type=album" alt="Раф">
+                    </a>
+                </div>
+                <div class="menu-item-title">Раф</div>
+                <div class="menu-item-price">280-370</div>
+                <div class="menu-item-description">Шот эспрессо, молоко и сливки</div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/coffee/cacao" target="_blank">
+                        <img src="https://sun9-25.userapi.com/impg/CLadGvKBBwHMIGPQNqLeEIfT34CJdtTn9PrQNg/UxPIIWNkyRo.jpg?size=1080x1080&quality=95&sign=f8f90e0a1b1af9bab89c0a0aea7e71a4&type=album" alt="Какао">
+                    </a>
+                </div>
+                <div class="menu-item-title">Какао</div>
+                <div class="menu-item-price">250-350</div>
+                <div class="menu-item-description">Молоко и какао</div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/coffee/hot-chocolate" target="_blank">
+                        <img src="https://sun9-76.userapi.com/impg/I0kFppe5j4-zRV0uGn_4EJZIo5XG5adj9g1gxQ/3PLkjGjJb4A.jpg?size=1080x1080&quality=95&sign=5555bc12511793882016e37fcf42bb8f&type=album" alt="Горячий шоколад">
+                    </a>
+                </div>
+                <div class="menu-item-title">Горячий шоколад</div>
+                <div class="menu-item-price">250-350</div>
+                <div class="menu-item-description">Молоко и шоколад</div>
+            </div>
+            
+            <!-- Чай -->
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/tea/assortment" target="_blank">
+                        <img src="https://sun9-67.userapi.com/impg/O9U2rHzaEQLDGBgLQ-4rhwFPcVCrdo0ev36iOg/kBhq2EfbNEQ.jpg?size=1080x1080&quality=95&sign=7aa71f0259b3b34cde7d1b6e6709b7d4&type=album" alt="Чай в ассортименте">
+                    </a>
+                </div>
+                <div class="menu-item-title">Чай в ассортименте</div>
+                <div class="menu-item-price">170</div>
+                <div class="menu-item-description">Различные сорта чая</div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/coffee/banana-cacao-ice" target="_blank">
+                        <img src="https://sun9-42.userapi.com/impg/eTnFCh1R92fO1DKOwjb13aRhZg45HHUOjizh5Q/ZJ15bqsODV0.jpg?size=1080x1080&quality=95&sign=602b21bca94e053836f438ff40c6aa95&type=album" alt="Айс банановый какао">
+                    </a>
+                </div>
+                <div class="menu-item-title">Айс банановый какао</div>
+                <div class="menu-item-price">400</div>
+                <div class="menu-item-description">Холодный какао с бананом</div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/coffee/matcha-latte" target="_blank">
+                        <img src="https://sun9-38.userapi.com/s/v1/ig2/ROdo4Ry8oZhyYY-p2xIN0WQDlbQSZxJL4plL08kmsjuZrq8zCKqPUIdC_0wrgl2RALCmEamibJnieeSLxHdc929c.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1081x1081&from=bu&c" alt="Матча Латте">
+                    </a>
+                </div>
+                <div class="menu-item-title">Матча Латте</div>
+                <div class="menu-item-price">250-350</div>
+                <div class="menu-item-description">Молоко и зеленый чай</div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/coffee/mulled-wine" target="_blank">
+                        <img src="https://sun9-59.userapi.com/s/v1/ig2/nd3v2QMY3rBn7pDzRMoYxarZNCY1r8bQkpBSgvDd3_0aaXmHI_4DAmDMuMfkklD0V7ebsRk7wdc3fFC30um95g-e.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1081x1081&from=bu&c" alt="Глинтвейн">
+                    </a>
+                </div>
+                <div class="menu-item-title">Глинтвейн</div>
+                <div class="menu-item-price">(классика/грейпфрут) 220-280</div>
+                <div class="menu-item-description">Корица, гвоздика, сок и цитрусы</div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/coffee/babycino" target="_blank">
+                        <img src="https://sun9-23.userapi.com/s/v1/ig2/i4FcUQmRgp2mZJzpEqVwjHyQQEXadp_-EJ8HQ-zbzvkKwL7aK5rAiXm8Pi5Fa-ihxxjOW8ZwSsQeSuivpK5nmrkt.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1081x1081&from=bu&c" alt="Бэйбичино">
+                    </a>
+                </div>
+                <div class="menu-item-title">Бэйбичино</div>
+                <div class="menu-item-price">170-230</div>
+                <div class="menu-item-description">Молоко с сиропом</div>
+            </div>
+
+            <!-- Лимонады -->
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/lemonade/bumble" target="_blank">
+                        <img src="https://sun9-24.userapi.com/s/v1/ig2/n49TiR5SPJ9I7TCvcAo3qtNDzjCHWbhxSRNNb5es357c08xFnTSEsRJtUYMFfag3vBNe9xEwLsXkG9YPkA_hENex.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080&from=bu&cs=1080x0" alt="Бамбл">
+                    </a>
+                </div>
+                <div class="menu-item-title">Бамбл</div>
+                <div class="menu-item-price">(апельсин/вишня) 350</div>
+                <div class="menu-item-description">Экзотический лимонад</div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/lemonade/classic-mix" target="_blank">
+                        <img src="https://sun9-26.userapi.com/s/v1/ig2/vnl-R-x9bjjttXah7veuEdhTkCI6PQfswQ0YFtObs4VWEgEhhFYKISS0bWd50XZIYPUAIfV0bftMaiWgEq2gOOHI.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080&from=bu&cs=1080x0" alt="Лимонады классика">
+                    </a>
+                </div>
+                <div class="menu-item-title">Лимонады классика</div>
+                <div class="menu-item-price">280</div>
+                <div class="menu-item-description">Классические вкусы</div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/drinks/oblepikhovy" target="_blank">
+                        <img src="https://sun9-52.userapi.com/s/v1/ig2/D7D1vZD9WIwT4XIlFoPIGxbzRZzttHkLKYWukPsduaQvUcZaZzh6oqBNnumS6akEFCTYjt0VYYQJCpZMQXmkgyTl.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080&from=bu&cs=1080x0" alt="Облепиховый напиток">
+                    </a>
+                </div>
+                <div class="menu-item-title">Облепиховый напиток</div>
+                <div class="menu-item-price">220-280</div>
+                <div class="menu-item-description">Облепиха со специями</div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/drinks/oblepikha-ginger" target="_blank">
+                        <img src="https://sun9-78.userapi.com/impg/YZhUPKyNYwiG1YUiv1CPh-xzRdC3a6WLL9Gjxg/OfCUBGilRYQ.jpg?size=1080x1080&quality=95&sign=8ca45a6a965643c7e7327a62b38c0ed1&type=album" alt="Облепиха-имбирь">
+                    </a>
+                </div>
+                <div class="menu-item-title">Облепиха-имбирь</div>
+                <div class="menu-item-price">220-280</div>
+                <div class="menu-item-description">Облепиха, имбирь, специи</div>
+            </div>
+
+            <!-- Другие напитки / Комбо -->
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/combo/americano-choco" target="_blank">
+                        <img src="https://sun9-73.userapi.com/impg/xyz8_ytqkf-wcSYPxSlvEx9O6veGIPifemsn_w/4uM9-1sat9w.jpg?size=1080x1080&quality=95&sign=7b433d2abdbb0e5334059f50d76460d8&type=album" alt="Американо Шоколад">
+                    </a>
+                </div>
+                <div class="menu-item-title">Американо шоколад</div>
+                <div class="menu-item-price">300</div>
+                <div class="menu-item-description">Американо с шоколадом</div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/combo/cappuccino-chocopai" target="_blank">
+                        <img src="https://sun9-12.userapi.com/impg/tUgbPHvwA_FBL_3UD3qGLbr-wWTLI87JB6WhPQ/A1uU_Ht9eI8.jpg?size=1080x1080&quality=95&sign=e589584812f33d199db645588868cdba&type=album" alt="Капучино Чокопай">
+                    </a>
+                </div>
+                <div class="menu-item-title">Капучино чокопай</div>
+                <div class="menu-item-price">380</div>
+                <div class="menu-item-description">Капучино с чокопаем</div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/combo/matcha-strawberry-coconut" target="_blank">
+                        <img src="https://sun9-25.userapi.com/impg/EbyAXO03qttRBQWz65PPyJYunCAAaDm15Iy77g/p4o4mllMs8I.jpg?size=1080x1080&quality=95&sign=1d2cc364e03e259c3679338a548ca054&type=album" alt="Матча клубника-кокос">
+                    </a>
+                </div>
+                <div class="menu-item-title">Матча клубника-кокос</div>
+                <div class="menu-item-price">380</div>
+                <div class="menu-item-description">Матча с клубникой и кокосом</div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/combo/barbie-latte-2.0" target="_blank">
+                        <img src="https://sun9-40.userapi.com/s/v1/ig2/2I2MNW05yQaoD0grTY1AShg8jcnYjrgu1As9VmPhVygI1wzocfNrlxM6EBikvKHXKqZPyT_ZDsQFYqtLQjTjonEw.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080&from=bu&cs=1080x0" alt="Барби-Латте 2.0">
+                    </a>
+                </div>
+                <div class="menu-item-title">Барби-Латте 2.0</div>
+                <div class="menu-item-price">380</div>
+                <div class="menu-item-description">Специальный латте</div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/drinks/aperol-no-alc" target="_blank">
+                        <img src="https://sun9-30.userapi.com/impg/iTQpu_Aawq3cx0NC3Vx0oT9NTS6wOx_uozWeSA/Zlcti-4-O3Q.jpg?size=1080x1080&quality=95&sign=1bcccf421f8223b90d2f5ff86663bc91&type=album" alt="Апероль Безалкогольный">
+                    </a>
+                </div>
+                <div class="menu-item-title">Апероль Безалкогольный</div>
+                <div class="menu-item-price">380</div>
+                <div class="menu-item-description">Безалкогольный апероль</div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image-wrapper">
+                    <a href="https://www.example.com/drinks/matcha-banana-mango-mindal" target="_blank">
+                        <img src="https://sun9-13.userapi.com/impg/btm38_wv99MyTBUPt6BzEGr4ec6jPtEdsDCkCw/twZ-JDZEYbU.jpg?size=1080x1080&quality=95&sign=be2c3156165da59ff536a9e751ab5d8e&type=album" alt="Матча Банан Манго-Миндаль">
+                    </a>
+                </div>
+                <div class="menu-item-title">Матча Банан Манго-Миндаль</div>
+                <div class="menu-item-price">350</div>
+                <div class="menu-item-description">Матча с бананом и миндалем</div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; Дон Кофеон 2026</p>
+        <p>ВК - @donkofeone</p>
+        <p>контактный телефон - +7 (987) 095-03-41</p>
+    </footer>
+</body>
+</html>

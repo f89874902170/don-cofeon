@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Меню Кофе</title>
+    <style>
+        :root {
+            --primary-red: #e03e3e;
+            --header-footer-bg: black;
+            --text-color-light: white;
+            --font-family: 'Times New Roman', serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-red);
+            color: var(--text-color-light);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: black;
+            color: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-logo img {
+            height: 35px;
+            margin-right: 15px;
+        }
+
+        .header-logo span {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .header-nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .header-nav a:hover {
+            color: #ddd;
+            text-decoration: underline;
+        }
+
+        .header-vk-icon img {
+            height: 25px;
+            margin-left: 15px;
+            vertical-align: middle;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            width: 100%;
+            max-width: 1920px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .left-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 40px;
+            max-width: 600px;
+            text-align: left;
+            box-sizing: border-box;
+        }
+
+        .left-panel h1 {
+            font-size: 100px;
+            margin-bottom: 20px;
+            line-height: 0.9;
+            color: var(--text-color-light);
+        }
+
+        .left-panel p {
+            font-size: 50px;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            color: var(--text-color-light);
+        }
+
+        .left-panel .bottom-text {
+            font-size: 30px;
+            margin-top: auto;
+            padding-top: 50px;
+            color: var(--text-color-light);
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 30px;
+            padding: 12px 25px;
+            margin-bottom: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            border: 1px solid #ddd;
+        }
+
+        .search-bar input {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            font-size: 22px;
+            padding: 0;
+            color: #333;
+        }
+
+        .search-bar input::placeholder {
+            color: #aaa;
+        }
+
+        .search-bar .search-icon {
+            font-size: 28px;
+            color: #888;
+            cursor: pointer;
+            margin-left: 15px;
+        }
+
+        .right-panel-container {
+            width: 50%;
+            height: auto;
+            padding: 30px;
+            background-image: url('menu.jpg');
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            flex-shrink: 0;
+        }
+
+        /* Удаляем всю стилизацию, связанную с сеткой меню */
+        .menu-grid,
+        .menu-item,
+        .menu-item-image-wrapper,
+        .menu-item img,
+        .menu-item-title,
+        .menu-item-price,
+        .menu-item-description {
+            display: none; /* Скрываем все элементы меню */
+        }
+
+        .footer {
+            background-color: var(--header-footer-bg);
+            color: var(--text-color-light);
+            padding: 25px 30px;
+            font-size: 16px;
+            text-align: center;
+            margin-top: auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 1200px) {
+            .main-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .left-panel {
+                max-width: 100%;
+                padding: 0 20px;
+                text-align: center;
+                align-items: center;
+            }
+
+            .left-panel h1 {
+                font-size: 70px;
+            }
+
+            .left-panel p {
+                font-size: 35px;
+            }
+
+            .left-panel .bottom-text {
+                font-size: 25px;
+            }
+
+            .right-panel-container {
+                width: 100%;
+                max-width: 100%;
+                border-radius: 0;
+                padding: 30px 20px;
+            }
+            /* На средних экранах сетка меню тоже скрывается, так как убран контент */
+            .menu-grid,
+            .menu-item,
+            .menu-item-image-wrapper,
+            .menu-item img,
+            .menu-item-title,
+            .menu-item-price,
+            .menu-item-description {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 10px 20px;
+            }
+             /* Стили для ссылок в шапке */
+        .a {
+            color: var(--text-color-light) !important; /* Всегда белый цвет */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .a:hover {
+            color: #ddd !important; /* Светлее при наведении */
+            text-decoration: underline;
+        }
+
+            .header-logo {
+                margin-bottom: 10px;
+                justify-content: center;
+            }
+
+            .header-nav {
+                display: none; /* Скрываем навигацию полностью на маленьких экранах */
+            }
+
+            .search-bar {
+                max-width: 100%;
+                padding: 10px 20px;
+            }
+
+            .search-bar input {
+                font-size: 18px;
+            }
+
+            .search-bar .search-icon {
+                font-size: 24px;
+            }
+
+            .footer {
+                padding: 20px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+ <header class="header">
+        <div class="header-logo">
+            <img src="logoDonCofeon.jpg" alt="Логотип Компании"> <!-- Укажите путь к вашему логотипу -->
+            <span><a href="file:///C:/Apache24/htdocs/doncofeon/index.html">Дон Кофеон</a></span>
+        </div>
+        <nav class="header-nav">
+            <a href="file:///C:/Apache24/htdocs/doncofeon/menu.html">меню</a>
+            <a href="file:///C:/Apache24/htdocs/doncofeon/predzakaz.html">предзаказ</a>
+            <a href="file:///C:/Apache24/htdocs/doncofeon/about.html">о нас</a>
+        </nav>
+        <div class="header-vk-icon">
+            <a href="https://vk.com/donkofeone"><img src="https://vk.com/donkofeone"><img src="https://m.vk.com/images/logos/vklogo_400.png" alt="VK"></a> <!-- Иконка VK -->
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="left-panel">
+            <h1>СРОЧНО</h1>
+            <p>не забудьте<br>заказать ваш<br>сегодняшний<br>кофе!</p>
+            <div class="search-bar">
+                <input type="text" placeholder="Введите название...">
+                <span class="search-icon">&#x1F50D;</span> <!-- Иконка поиска -->
+            </div>
+            <p class="bottom-text">Или устроиться к нам на работу</p>
+        </div>
+
+        <div class="right-panel-container">
+
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; Дон Кофеон 2026</p>
+        <p>ВК - @donkofeone</p>
+        <p>контактный телефон - +7 (987) 095-03-41</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кофе с которым по пути</title>
+    <style>
+        :root {
+            --primary-red: #e03e3e;
+            --header-footer-bg: black;
+            --text-color-light: white;
+            --news-bg: #2e2e2e; /* Темно-серый фон для бегущей строки */
+            --news-text-color: white;
+            --section-bg-color: #f0d7b1; /* Светло-бежевый фон для основного контента */
+            --font-family: 'Times New Roman', serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 0;
+            background-color: var(--primary-red);
+            color: #333; /* Основной цвет текста на красном фоне */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: var(--header-footer-bg);
+            color: var(--text-color-light);
+            padding: 15px 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-logo img {
+            height: 35px;
+            margin-right: 15px;
+        }
+
+        .header-logo span {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        /* Стили для ссылок в шапке (всегда белые) */
+        .header a {
+            color: var(--text-color-light) !important;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .header a:hover {
+            color: #ddd !important;
+            text-decoration: underline;
+        }
+
+        .header-vk-icon img {
+            height: 25px;
+            margin-left: 15px;
+            vertical-align: middle;
+            filter: brightness(0) invert(1); /* Делает изображение белым */
+        }
+
+        @media (max-width: 768px) {
+            .header-vk-icon img {
+                 filter: none; /* Убираем фильтр, если он мешает */
+            }
+         }
+
+        .main-content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column; /* Контент будет в колонку, чтобы бегущая строка была между */
+            align-items: stretch;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .main-hero-section {
+            display: flex;
+            flex: 1; /* Занимает доступное пространство */
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            margin-bottom: 40px; /* Отступ под основной секцией */
+        }
+
+        .hero-text-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        .hero-text-panel h1 {
+            font-size: 80px; /* Уменьшаем размер заголовка */
+            margin-bottom: 30px;
+            line-height: 1;
+            color: #8b0000; /* Бордовый цвет */
+    /* Рассеивающаяся бежевая тень позади текста */
+    text-shadow:
+        0px 0px 10px #f0d7b1, /* Первый слой: минимум смещения, среднее размытие */
+        0px 0px 20px #e8c8a5; /* Второй слой: тоже минимум смещения, большее размытие */
+    /* Вы можете регулировать значения смещения (первые два числа) и размытия (третье число) */
+        }
+
+        .hero-text-panel p {
+            font-size: 22px; /* Более мелкий шрифт для основного текста */
+            margin-bottom: 30px;
+            line-height: 1.4;
+            color: #333; /* Основной текст на бежевом фоне */
+        }
+
+        .apply-button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 24px;
+            font-weight: bold;
+            color: black; /* Текст кнопки */
+            background-color: #fff3e0; /* Светло-бежевый фон для кнопки */
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-decoration: none; /* Убираем подчеркивание у ссылки */
+        }
+
+        .apply-button:hover {
+            background-color: #e8d8c5; /* Темнее при наведении */
+            transform: translateY(-3px);
+        }
+
+        .hero-image-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-left: 40px; /* Отступ слева */
+            text-align: center;
+        }
+
+        .hero-image-panel .fon-image {
+            width: 100%;
+            max-width: 300px; /* Ограничение ширины изображения */
+            height: auto;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        /* Бегущая строка */
+        .running-news {
+            background-color: var(--news-bg);
+            color: var(--news-text-color);
+            font-size: 24px;
+            padding: 15px 0;
+            text-align: center;
+            overflow: hidden; /* Обрезаем все, что выходит за рамки */
+            white-space: nowrap; /* Содержимое не переносится */
+            position: relative; /* Для позиционирования текста */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .running-news span {
+            display: inline-block; /* Чтобы текст мог двигаться */
+            padding-left: 100%; /* Начинаем за пределами видимости */
+            animation: scroll-left 50s linear infinite; /* Анимация: название, длительность, тип, зацикленность */
+        }
+
+        /* Анимация */
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%); /* Движение влево на всю ширину */
+            }
+        }
+
+        .info-section {
+            background-color: var(--section-bg-color); /* Бежевый фон для секции новостей */
+            padding: 40px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .info-cards {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 1200px;
+            gap: 30px;
+            flex-wrap: wrap; /* Перенос карточек при уменьшении экрана */
+        }
+
+        .info-card {
+            background-color: white; /* Фон карточек */
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            text-align: center;
+            flex: 1; /* Позволяет карточкам занимать доступное пространство */
+            min-width: 280px; /* Минимальная ширина карточки */
+            max-width: 350px; /* Максимальная ширина карточки */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .info-card img {
+            width: 100%;
+            max-width: 100%; /* Гарантирует, что изображение не выйдет за пределы */
+            height: 200px; /* Фиксированная высота изображений */
+            object-fit: cover; /* Обрезка для сохранения пропорций */
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .info-card-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #110101;
+        }
+
+        .info-card-text {
+            font-size: 16px;
+            color: #030000;
+            line-height: 1.4;
+        }
+
+        .footer {
+            background-color: var(--header-footer-bg);
+            color: var(--text-color-light);
+            padding: 25px 30px;
+            font-size: 16px;
+            text-align: center;
+            margin-top: auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .main-content-area {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .main-hero-section {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+                padding: 0 20px;
+            }
+
+            .hero-text-panel {
+                max-width: 100%;
+                align-items: center; /* Центрируем текст */
+            }
+
+            .hero-text-panel h1 {
+                font-size: 60px;
+            }
+
+            .hero-text-panel p {
+                font-size: 18px;
+            }
+
+            .apply-button {
+                width: 80%; /* Делаем кнопку шире на мобильных */
+                max-width: 300px;
+            }
+
+            .hero-image-panel {
+                margin-left: 0;
+                margin-top: 30px;
+            }
+
+            .running-news span {
+                animation-duration: 10s; /* Ускоряем бегущую строку на малых экранах */
+            }
+
+            .info-cards {
+                flex-direction: column; /* Карточки друг под другом */
+                align-items: center;
+            }
+
+            .info-card {
+                max-width: 100%; /* Занимают всю ширину */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                padding: 10px 20px;
+            }
+
+            .header-logo {
+                margin-bottom: 10px;
+                justify-content: center;
+            }
+
+            .header-nav {
+                display: none; /* Навигация скрыта */
+            }
+
+            .running-news {
+                font-size: 18px;
+                padding: 10px 0;
+            }
+
+            .running-news span {
+                animation-duration: 8s; /* Еще быстрее */
+            }
+
+            .hero-text-panel h1 {
+                font-size: 50px;
+            }
+
+            .hero-text-panel p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+        <div class="header-logo">
+            <img src="logoDonCofeon.jpg" alt="Логотип Компании"> <!-- Укажите путь к вашему логотипу -->
+            <span><a href="file:///C:/Apache24/htdocs/doncofeon/index.html">Дон Кофеон</a></span>
+        </div>
+        <nav class="header-nav">
+            <a href="file:///C:/Apache24/htdocs/doncofeon/menu.html">меню</a>
+            <a href="file:///C:/Apache24/htdocs/doncofeon/predzakaz.html">предзаказ</a>
+            <a href="file:///C:/Apache24/htdocs/doncofeon/about.html">о нас</a>
+        </nav>
+        <div class="header-vk-icon">
+            <a href="https://vk.com/donkofeone"><img src="https://vk.com/donkofeone"><img src="https://m.vk.com/images/logos/vklogo_400.png" alt="VK"></a> <!-- Иконка VK -->
+        </div>
+    </header>
+
+    <div class="main-content-area">
+        <section class="main-hero-section">
+            <div class="hero-text-panel">
+                <h1>Кофе с которым<br>по пути</h1>
+                <p>
+                    Мы всегда стараемся быть с вами на<br>
+                    одной волне, наше главное желание -<br>
+                    видеть ваши счастливые лица после<br>
+                    покупки нашего кофе и знать, что<br>
+                    день прожит не зря. Просим вас<br>
+                    заходить почаще, и по возможности<br>
+                    вступить в большую семью нашего<br>
+                    Дон Кофеон - всегда будем ждать<br>
+                    вас!
+                </p>
+                <a href="error.html" class="apply-button">хочу<br>заполнить<br>резюме!</a>
+            </div>
+            <div class="hero-image-panel">
+                <img src="kitty.gif" alt="Иллюстрация" class="fon-image"> <!-- Изображение fon.png -->
+            </div>
+        </section>
+
+        <div class="running-news">
+            <span>СВЕЖИЕ НОВОСТИ СВЕЖИЕ НОВОСТИ СВЕЖИЕ НОВОСТИ СВЕЖИЕ НОВОСТИ СВЕЖИЕ НОВОСТИ СВЕЖИЕ НОВОСТИ СВЕЖИЕ НОВОСТИ СВЕЖИЕ НОВОСТИ СВЕЖИЕ НОВОСТИ СВЕЖИЕ НОВОСТИ СВЕЖИЕ НОВОСТИ СВЕЖИЕ НОВОСТИ СВЕЖИЕ НОВОСТИ СВЕЖИЕ НОВОСТИ СВЕЖИЕ НОВОСТИ СВЕЖИЕ НОВОСТИ СВЕЖИЕ НОВОСТИ СВЕЖИЕ НОВОСТИ</span>
+        </div>
+
+        <section class="info-section">
+            <div class="info-cards">
+                <div class="info-card">
+                    <img src="https://sun9-76.userapi.com/s/v1/ig2/_CBo7WihVwXFTA3nTpfdMc1KL5fy_nF4QyubJTNjGr96_JOtbyIpHBDq43OH-nAshJV0y3em-XItuxCGmO5b8Cfs.jpg?quality=95&crop=0,5,1700,2550&as=32x48,48x72,72x108,108x162,160x240,240x360,360x540,480x720,540x810,640x960,720x1080,1080x1620,1280x1920,1440x2160,1700x2550&from=bu&u=rgCQ0DooRh0YnubNjkkfAexozz5spswLGibf3xEvpPA&cs=640x0" alt="Новость 1">
+                    <div class="info-card-title">Вы спросили - мы привезли!</div>
+                    <div class="info-card-text">Старые добрые рафы</div>
+                </div>
+                <div class="info-card">
+                    <img src="https://sun9-71.userapi.com/s/v1/ig2/GSGNSEuWfiDp1VcOD52NSv1H_YjqBtL7mB1OA88nQU6X2dYJWaHCzD8dL4dxZvIIPNQKGa0qlcuUa-BCIPHQSH0b.jpg?quality=95&as=32x48,48x72,72x108,108x162,160x240,240x360,360x540,480x720,540x810,640x960,720x1080,1080x1620,1280x1920,1440x2160,1707x2560&from=bu&u=7n18vWubdb1UIDV_3wsw0yNAUL2irV1Mm6k8cpJeVWg&cs=640x0" alt="Новость 2">
+                    <div class="info-card-title">Новинка - хот-дог в закрытой булочке!</div>
+                    <div class="info-card-text">Вместе с кофе скидка на 10%</div>
+                </div>
+                <div class="info-card">
+                    <img src="https://sun9-59.userapi.com/s/v1/ig2/uQ4EczFk35W9MFrv5gXz_v6mVZueVI6qVO8274ljr_ZXjV_54iLiu9Irl4CFEQnPrxNvb5Jv1-a57URrh_-lZRHM.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x854,720x960,1080x1440,1196x1595&from=bu&u=ITnj0CYA6P0wLud07pm_wGP65_BvUwZJPy5kQaMz_uc&cs=1080x0" alt="Новость 3">
+                    <div class="info-card-title">г. Уфа<br>Набережная</div>
+                    <div class="info-card-text">Мы открыли вторую точку!</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; Дон Кофеон 2026</p>
+        <p>ВК - @donkofeone</p>
+        <p>контактный телефон - +7 (987) 095-03-41</p>
+    </footer>
+</body>
+</html>
